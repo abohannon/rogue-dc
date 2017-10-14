@@ -1,4 +1,31 @@
 body {
+  background-color: white;
+}
+
+.wall {
   background-color: black;
-  color: white;
+}
+
+.floor {
+  backround-color: white;
+}
+
+.player {
+  background-color: #2196F3;
+}
+
+.health {
+  background-color: #00E676;
+}
+
+.weapon {
+  background-color: #CDDC39;
+}
+
+.enemy {
+  background-color: #F44336;
+}
+
+.boss {
+  background-color: #B71C1C;
 }

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import '../App.css';
 
 const createCellStyles = () => ({
   cell: {
-    height: '10px',
-    width: '10px',
-    border: '1px solid rgba(255, 255, 255, 0.5)',
+    height: '15px',
+    width: '15px',
+    border: '1px solid black',
     outline: 'none',
-    float: 'left',
   },
 });
 
@@ -18,7 +18,7 @@ class Cell extends Component {
     } = createCellStyles();
 
     return (
-      <div style={cell} />
+      <div className={this.props.cellClass} style={cell} />
     );
   }
 }
