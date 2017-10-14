@@ -1,15 +1,93 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 import PropTypes from 'prop-types';
+import Badge from 'material-ui/Badge';
+import IconButton from 'material-ui/IconButton';
+import LevelIcon from 'material-ui/svg-icons/action/perm-identity';
+import HealthIcon from 'material-ui/svg-icons/action/favorite';
+import NextLevelIcon from 'material-ui/svg-icons/action/trending-up';
+import XPIcon from 'material-ui/svg-icons/social/poll';
+import AttackIcon from 'material-ui/svg-icons/action/gavel';
+
+const createStyles = () => ({
+  container: {
+    margin: '32px 0 0 0',
+  },
+});
 
 class Stats extends Component {
+  static propTypes = {
+
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      mystate: null,
+    };
+  }
+
   render() {
+    const {
+      container,
+    } = createStyles();
+
+    const {
+      state,
+    } = this.props;
+
     return (
-      <div>
-        <div>Level</div>
-        <div>XP</div>
-        <div>Health</div>
-        <div>Damage</div>
+      <div style={container}>
+        <Badge
+          className="level-icon"
+          badgeContent={state.level}
+          primary
+        >
+          <IconButton tooltip="Level">
+            <LevelIcon />
+          </IconButton>
+        </Badge>
+        <Badge
+          className="health-icon"
+          badgeContent={state.health}
+          badgeStyle={{ backgroundColor: '#64DD17', color: 'white' }}
+
+        >
+          <IconButton tooltip="Health">
+            <HealthIcon />
+          </IconButton>
+        </Badge>
+        <Badge
+          className="xp-icon"
+          badgeContent={state.xp}
+          badgeStyle={{ backgroundColor: 'black', color: 'white' }}
+
+        >
+          <IconButton tooltip="XP">
+            <XPIcon />
+          </IconButton>
+        </Badge>
+        <Badge
+          className="next-level-icon"
+          badgeContent={state.nextLevel}
+          badgeStyle={{ backgroundColor: 'black', color: 'white' }}
+
+        >
+          <IconButton tooltip="Next Level">
+            <NextLevelIcon />
+          </IconButton>
+        </Badge>
+        <Badge
+          className="attack-icon"
+          badgeContent={state.attack}
+          badgeStyle={{ backgroundColor: 'black', color: 'white' }}
+
+        >
+          <IconButton tooltip="Attack">
+            <AttackIcon />
+          </IconButton>
+        </Badge>
       </div>
 
     );

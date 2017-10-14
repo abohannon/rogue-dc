@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PropTypes from 'prop-types';
 import './App.css';
 
@@ -12,6 +13,7 @@ const createAppStyles = () => ({
     flexDirection: 'column',
     alignItems: 'center',
     textAlign: 'center',
+    marginTop: 24,
   },
 });
 
@@ -32,6 +34,11 @@ class App extends Component {
 
     this.state = {
       board: boardArray,
+      level: 2,
+      xp: 0,
+      health: 50,
+      attack: 0,
+      nextLevel: 0,
     };
   }
 
@@ -39,7 +46,6 @@ class App extends Component {
     this.createPlayer();
   }
 
-  // TODO: In progress
   createPlayer = () => {
     const newState = [...this.state.board];
     newState[Math.floor(Math.random() * this.rows)][Math.floor(Math.random() * this.columns)] = 2;
@@ -59,12 +65,14 @@ class App extends Component {
     } = createAppStyles();
 
     return (
-      <div className="App" style={appWrapper}>
-        <Board
-          boardArray={this.state.board}
-        />
-        <Stats />
-      </div>
+      <MuiThemeProvider>
+        <div className="App" style={appWrapper}>
+          <Board
+            boardArray={this.state.board}
+          />
+          <Stats state={this.state} />
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

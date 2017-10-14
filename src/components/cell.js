@@ -6,7 +6,7 @@ const createCellStyles = () => ({
   cell: {
     height: '15px',
     width: '15px',
-    border: '1px solid black',
+    border: '1px solid rgba(0, 0, 0, 0.5)',
     outline: 'none',
   },
 });
