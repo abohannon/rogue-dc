@@ -17,7 +17,7 @@ const createStyles = () => ({
 
 class Stats extends Component {
   static propTypes = {
-
+    state: PropTypes.object.isRequired,
   }
 
   constructor(props) {

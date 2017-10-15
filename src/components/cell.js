@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import PropTypes from 'prop-types';
 import '../App.css';
 
 const createCellStyles = () => ({
@@ -12,6 +13,9 @@ const createCellStyles = () => ({
 });
 
 class Cell extends Component {
+  static propTypes = {
+    cellClass: PropTypes.string.isRequired,
+  };
   render() {
     const {
       cell,
