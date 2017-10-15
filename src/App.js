@@ -23,6 +23,7 @@ class App extends Component {
     this.rows = 30;
     this.columns = 50;
     this.healthCount = 10;
+    this.weaponsCount = 5;
 
     const boardArray = [];
     for (let i = 0; i < this.rows; i++) {
@@ -48,6 +49,7 @@ class App extends Component {
     console.log('App mounting...');
     this.createPlayer();
     this.createHealth(this.healthCount);
+    this.createWeapons(this.weaponsCount);
     document.addEventListener('keydown', this.handleKeyDown);
   }
 
@@ -77,6 +79,20 @@ class App extends Component {
       const randomRow = Math.floor(Math.random() * this.rows);
       const randomColumn = Math.floor(Math.random() * this.columns);
       newState[randomRow][randomColumn] = 3;
+    }
+
+    this.setState({
+      board: newState,
+    });
+  }
+
+  createWeapons = (amount) => {
+    const newState = [...this.state.board];
+
+    for (let i = 0; i < amount; i++) {
+      const randomRow = Math.floor(Math.random() * this.rows);
+      const randomColumn = Math.floor(Math.random() * this.columns);
+      newState[randomRow][randomColumn] = 4;
     }
 
     this.setState({
