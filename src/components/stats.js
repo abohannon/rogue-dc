@@ -42,7 +42,7 @@ class Stats extends Component {
         <Badge
           className="level-icon"
           badgeContent={state.level}
-          primary
+          badgeStyle={{ backgroundColor: '#2196F3', color: 'white' }}
         >
           <IconButton tooltip="Level">
             <LevelIcon />
@@ -56,6 +56,16 @@ class Stats extends Component {
         >
           <IconButton tooltip="Health">
             <HealthIcon />
+          </IconButton>
+        </Badge>
+        <Badge
+          className="attack-icon"
+          badgeContent={state.attack}
+          badgeStyle={{ backgroundColor: '#FFEA00', color: 'black' }}
+
+        >
+          <IconButton tooltip="Attack">
+            <AttackIcon />
           </IconButton>
         </Badge>
         <Badge
@@ -76,16 +86,6 @@ class Stats extends Component {
         >
           <IconButton tooltip="Next Level">
             <NextLevelIcon />
-          </IconButton>
-        </Badge>
-        <Badge
-          className="attack-icon"
-          badgeContent={state.attack}
-          badgeStyle={{ backgroundColor: 'black', color: 'white' }}
-
-        >
-          <IconButton tooltip="Attack">
-            <AttackIcon />
           </IconButton>
         </Badge>
       </div>
