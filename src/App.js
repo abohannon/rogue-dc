@@ -37,7 +37,7 @@ class App extends Component {
       board: boardArray,
       level: 2,
       xp: 0,
-      health: 50,
+      health: 100,
       attack: 0,
       nextLevel: 0,
       row: 0,
@@ -99,11 +99,14 @@ class App extends Component {
       board: newState,
     });
   }
-
+  // TODO: Rename this function to something more descriptive
   handleKeyDown = (event) => {
     const newBoard = [...this.state.board];
     let row = this.state.row;
     let column = this.state.column;
+    let newHealth = this.state.health;
+    let newWeapon = this.state.attack;
+
     // TODO: prevent player from exiting board/going to a negative row or column
     switch (event.key) {
       case 'ArrowUp':
@@ -134,6 +137,16 @@ class App extends Component {
         return;
     }
 
+    switch (this.state.board[row][column]) {
+      case 3:
+        newHealth += 5;
+        break;
+      case 4:
+        newWeapon += 5;
+        break;
+      // no default
+    }
+
     newBoard[this.state.row][this.state.column] = 1;
     newBoard[row][column] = 2;
 
@@ -141,6 +154,8 @@ class App extends Component {
       board: newBoard,
       row,
       column,
+      health: newHealth,
+      attack: newWeapon,
     });
   }
 
