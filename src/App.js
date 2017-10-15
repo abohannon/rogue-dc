@@ -22,6 +22,7 @@ class App extends Component {
 
     this.rows = 30;
     this.columns = 50;
+    this.healthCount = 10;
 
     const boardArray = [];
     for (let i = 0; i < this.rows; i++) {
@@ -46,6 +47,7 @@ class App extends Component {
   componentDidMount() {
     console.log('App mounting...');
     this.createPlayer();
+    this.createHealth(this.healthCount);
     document.addEventListener('keydown', this.handleKeyDown);
   }
 
@@ -68,6 +70,20 @@ class App extends Component {
     });
   };
 
+  createHealth = (amount) => {
+    const newState = [...this.state.board];
+
+    for (let i = 0; i < amount; i++) {
+      const randomRow = Math.floor(Math.random() * this.rows);
+      const randomColumn = Math.floor(Math.random() * this.columns);
+      newState[randomRow][randomColumn] = 3;
+    }
+
+    this.setState({
+      board: newState,
+    });
+  }
+
   handleKeyDown = (event) => {
     const newBoard = [...this.state.board];
     let row = this.state.row;
@@ -75,19 +91,27 @@ class App extends Component {
     // TODO: prevent player from exiting board/going to a negative row or column
     switch (event.key) {
       case 'ArrowUp':
-        row--;
+        if (row > 0) {
+          row--;
+        }
         event.preventDefault();
         break;
       case 'ArrowDown':
-        row++;
+        if (row < this.rows - 1) {
+          row++;
+        }
         event.preventDefault();
         break;
       case 'ArrowLeft':
-        column--;
+        if (column > 0) {
+          column--;
+        }
         event.preventDefault();
         break;
       case 'ArrowRight':
-        column++;
+        if (column < this.columns - 1) {
+          column++;
+        }
         event.preventDefault();
         break;
       default:
