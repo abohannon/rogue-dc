@@ -28,6 +28,7 @@ class App extends Component {
     this.columns = 50;
     this.healthCount = 10;
     this.weaponsCount = 5;
+    this.enemyCount = 12;
 
     const boardArray = [];
     for (let i = 0; i < this.rows; i++) {
@@ -54,6 +55,7 @@ class App extends Component {
     this.createPlayer();
     this.createHealth(this.healthCount);
     this.createWeapons(this.weaponsCount);
+    this.createEnemies(this.enemyCount);
     document.addEventListener('keydown', this.handleKeyDown);
   }
 
@@ -104,6 +106,21 @@ class App extends Component {
       board: newState,
     });
   }
+
+  createEnemies = (amount) => {
+    const newState = [...this.state.board];
+
+    for (let i = 0; i < amount; i++) {
+      const randomRow = Math.floor(Math.random() * this.rows);
+      const randomColumn = Math.floor(Math.random() * this.columns);
+      newState[randomRow][randomColumn] = 5;
+    }
+
+    this.setState({
+      board: newState,
+    });
+  }
+
   // TODO: Rename this function to something more descriptive
   handleKeyDown = (event) => {
     const newBoard = [...this.state.board];

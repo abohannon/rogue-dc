@@ -45,6 +45,8 @@ class Grid extends Component {
               cellClass = 'health cell';
             } else if (item === 4) {
               cellClass = 'weapon cell';
+            } else if (item === 5) {
+              cellClass = 'enemy cell';
             }
             return <Cell cellClass={cellClass} />;
           })
