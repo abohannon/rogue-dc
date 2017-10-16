@@ -5,6 +5,7 @@ import './App.css';
 
 import Board from './components/board';
 import Stats from './components/stats';
+import Feed from './components/feed';
 
 const createAppStyles = () => ({
   appWrapper: {
@@ -13,6 +14,9 @@ const createAppStyles = () => ({
     alignItems: 'center',
     textAlign: 'center',
     marginTop: 24,
+  },
+  topContainer: {
+    display: 'flex',
   },
 });
 
@@ -140,6 +144,7 @@ class App extends Component {
     switch (this.state.board[row][column]) {
       case 3:
         newHealth += 5;
+        console.log('You picked up health +5');
         break;
       case 4:
         newWeapon += 5;
@@ -162,14 +167,18 @@ class App extends Component {
   render() {
     const {
       appWrapper,
+      topContainer,
     } = createAppStyles();
 
     return (
       <MuiThemeProvider>
         <div className="App" style={appWrapper}>
-          <Board
-            boardArray={this.state.board}
-          />
+          <div style={topContainer}>
+            <Board
+              boardArray={this.state.board}
+            />
+            <Feed />
+          </div>
           <Stats state={this.state} />
         </div>
       </MuiThemeProvider>

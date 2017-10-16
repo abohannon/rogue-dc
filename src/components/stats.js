@@ -11,7 +11,7 @@ import AttackIcon from 'material-ui/svg-icons/action/gavel';
 
 const createStyles = () => ({
   container: {
-    margin: '32px 0 0 0',
+    margin: '32px 0 0 -664px',
   },
 });
 
