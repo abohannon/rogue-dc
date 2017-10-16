@@ -39,10 +39,10 @@ class App extends Component {
 
     this.state = {
       board: boardArray,
-      level: 2,
+      level: 1,
       xp: 0,
       health: 100,
-      attack: 0,
+      attack: 1,
       nextLevel: 0,
       row: 0,
       column: 0,
@@ -76,6 +76,7 @@ class App extends Component {
     });
   };
 
+  // TODO: Combine element creation into one function?
   createHealth = (amount) => {
     const newState = [...this.state.board];
 
@@ -110,6 +111,7 @@ class App extends Component {
     let column = this.state.column;
     let newHealth = this.state.health;
     let newWeapon = this.state.attack;
+    const randomNum = Math.floor(Math.random() * 6) + 5;
 
     // TODO: prevent player from exiting board/going to a negative row or column
     switch (event.key) {
@@ -143,11 +145,11 @@ class App extends Component {
 
     switch (this.state.board[row][column]) {
       case 3:
-        newHealth += 5;
-        console.log('You picked up health +5');
+        newHealth += randomNum;
+        console.log(`You picked up health +${randomNum}`);
         break;
       case 4:
-        newWeapon += 5;
+        newWeapon += 1;
         break;
       // no default
     }
