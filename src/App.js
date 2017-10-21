@@ -34,7 +34,12 @@ class App extends Component {
     for (let i = 0; i < this.rows; i++) {
       boardArray.push([]);
       for (let j = 0; j < this.columns; j++) {
-        boardArray[i].push(1);
+        if (
+          Math.random() > 0.8) {
+          boardArray[i].push(0);
+        } else {
+          boardArray[i].push(1);
+        }
       }
     }
 
@@ -85,6 +90,7 @@ class App extends Component {
     for (let i = 0; i < amount; i++) {
       const randomRow = Math.floor(Math.random() * this.rows);
       const randomColumn = Math.floor(Math.random() * this.columns);
+      console.log('HEALTH', randomRow, randomColumn);
       newState[randomRow][randomColumn] = 3;
     }
 
@@ -161,6 +167,11 @@ class App extends Component {
     }
 
     switch (this.state.board[row][column]) {
+      case 0:
+        console.log('You just hit a wall!');
+        row = this.state.row;
+        column = this.state.column;
+        break;
       case 3:
         newHealth += randomNum;
         console.log(`You picked up health +${randomNum}`);

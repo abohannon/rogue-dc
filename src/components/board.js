@@ -37,7 +37,9 @@ class Grid extends Component {
       <div className="row" style={rowStyle}>
         {
           row.map((item) => {
-            if (item === 1) {
+            if (item === 0) {
+              cellClass = 'wall cell';
+            } else if (item === 1) {
               cellClass = 'floor cell';
             } else if (item === 2) {
               cellClass = 'player cell';
