@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import PropTypes from 'prop-types';
 import Badge from 'material-ui/Badge';
+import Toggle from 'material-ui/Toggle';
+import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import LevelIcon from 'material-ui/svg-icons/action/perm-identity';
 import HealthIcon from 'material-ui/svg-icons/action/favorite';
@@ -11,7 +13,11 @@ import AttackIcon from 'material-ui/svg-icons/action/gavel';
 
 const createStyles = () => ({
   container: {
-    margin: '32px 0 0 250px',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    margin: '32px 0 0 0',
   },
 });
 
@@ -47,55 +53,63 @@ class Stats extends Component {
 
     return (
       <div style={container}>
-        <Badge
-          className="level-icon"
-          badgeContent={level}
-          badgeStyle={{ backgroundColor: '#2196F3', color: 'white' }}
-        >
-          <IconButton tooltip="Level">
-            <LevelIcon />
-          </IconButton>
-        </Badge>
-        <Badge
-          className="health-icon"
-          badgeContent={health}
-          badgeStyle={{ backgroundColor: '#64DD17', color: 'white' }}
+        <div>
+          <Badge
+            className="level-icon"
+            badgeContent={level}
+            badgeStyle={{ backgroundColor: '#2196F3', color: 'white' }}
+          >
+            <IconButton tooltip="Level">
+              <LevelIcon />
+            </IconButton>
+          </Badge>
+          <Badge
+            className="health-icon"
+            badgeContent={health}
+            badgeStyle={{ backgroundColor: '#64DD17', color: 'white' }}
 
-        >
-          <IconButton tooltip="Health">
-            <HealthIcon />
-          </IconButton>
-        </Badge>
-        <Badge
-          className="attack-icon"
-          badgeContent={attack}
-          badgeStyle={{ backgroundColor: '#FFEA00', color: 'black' }}
+          >
+            <IconButton tooltip="Health">
+              <HealthIcon />
+            </IconButton>
+          </Badge>
+          <Badge
+            className="attack-icon"
+            badgeContent={attack}
+            badgeStyle={{ backgroundColor: '#FFEA00', color: 'black' }}
 
-        >
-          <IconButton tooltip="Attack">
-            <AttackIcon />
-          </IconButton>
-        </Badge>
-        <Badge
-          className="xp-icon"
-          badgeContent={xp}
-          badgeStyle={{ backgroundColor: 'black', color: 'white' }}
+          >
+            <IconButton tooltip="Attack">
+              <AttackIcon />
+            </IconButton>
+          </Badge>
+          <Badge
+            className="xp-icon"
+            badgeContent={xp}
+            badgeStyle={{ backgroundColor: 'black', color: 'white' }}
 
-        >
-          <IconButton tooltip="XP">
-            <XPIcon />
-          </IconButton>
-        </Badge>
-        <Badge
-          className="next-level-icon"
-          badgeContent={nextLevel}
-          badgeStyle={{ backgroundColor: 'black', color: 'white' }}
+          >
+            <IconButton tooltip="XP">
+              <XPIcon />
+            </IconButton>
+          </Badge>
+          <Badge
+            className="next-level-icon"
+            badgeContent={nextLevel}
+            badgeStyle={{ backgroundColor: 'black', color: 'white' }}
 
-        >
-          <IconButton tooltip="Next Level">
-            <NextLevelIcon />
-          </IconButton>
-        </Badge>
+          >
+            <IconButton tooltip="Next Level">
+              <NextLevelIcon />
+            </IconButton>
+          </Badge>
+        </div>
+        <div>
+          <Toggle label="Fog" />
+        </div>
+        <div>
+          <RaisedButton label="Reset" />
+        </div>
       </div>
 
     );

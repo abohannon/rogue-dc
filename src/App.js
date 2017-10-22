@@ -10,13 +10,13 @@ import Feed from './components/feed';
 const createAppStyles = () => ({
   appWrapper: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    textAlign: 'center',
+    flexDirection: 'row',
     marginTop: 24,
+    justifyContent: 'center',
   },
-  topContainer: {
+  mainContainer: {
     display: 'flex',
+    flexDirection: 'column',
   },
 });
 
@@ -49,7 +49,7 @@ class App extends Component {
       xp: 0,
       health: 100,
       attack: 1,
-      nextLevel: 0,
+      nextLevel: 20,
       row: 0,
       column: 0,
       enemyHP: 5,
@@ -135,8 +135,8 @@ class App extends Component {
     let newHealth = this.state.health;
     let attack = this.state.attack;
     let enemyHP = this.state.enemyHP;
-    const randomNum = Math.floor(Math.random() * 6) + 5;
-
+    let xp = this.state.xp;
+    // setup basic keyboard movement
     switch (event.key) {
       case 'ArrowUp':
         if (row > 0) {
@@ -167,35 +167,38 @@ class App extends Component {
     }
 
     switch (this.state.board[row][column]) {
-      case 0:
+      case 0: // wall
         console.log('You just hit a wall!');
         row = this.state.row;
         column = this.state.column;
         break;
-      case 3:
-        newHealth += randomNum;
-        console.log(`You picked up health +${randomNum}`);
+      case 3: // picked up health
+        newHealth += Math.floor(Math.random() * 6) + 5;
         break;
-      case 4:
+      case 4: // picked up a weapon
         attack += 1;
         break;
-      case 5:
+      case 5: // encountered an enemy
         console.log('You are fighting an enemy!');
         if (enemyHP > 0) {
           row = this.state.row;
           column = this.state.column;
-          enemyHP -= attack;
-          newHealth -= Math.floor(Math.random() * 5);
+          enemyHP -= Math.floor(Math.random() * (5 - attack)) + attack;
+          console.log('attack!', Math.floor(Math.random() * (5 - attack)) + attack);
+          newHealth -= Math.floor(Math.random() * 5) + 2;
         } else {
           console.log('You killed an enemy!');
-          enemyHP += 10;
-          // TODO: make enemy progressively stronger by using prevState?
-          // TODO: Need to handle when enemy HP go negative
+          enemyHP = enemyHP + Math.abs(enemyHP) + Math.floor(Math.random() * 10) + 5;
+          /* if enemyHP is negative, bring it back to zero then
+          add random number between 5-15 */
+          xp += Math.floor(Math.random() * (10 - 3)) + 3;
         }
         break;
       // no default
     }
 
+    /* update copy of board array with new player position and change
+    previous player position to a floor class (to avoid snake effect) */
     newBoard[this.state.row][this.state.column] = 1;
     newBoard[row][column] = 2;
 
@@ -206,25 +209,26 @@ class App extends Component {
       health: newHealth,
       attack,
       enemyHP,
+      xp,
     });
   }
 
   render() {
     const {
       appWrapper,
-      topContainer,
+      mainContainer,
     } = createAppStyles();
 
     return (
       <MuiThemeProvider>
         <div className="App" style={appWrapper}>
-          <div style={topContainer}>
+          <div style={mainContainer}>
             <Board
               boardArray={this.state.board}
             />
-            <Feed />
+            <Stats {...this.state} />
           </div>
-          <Stats {...this.state} />
+          <Feed />
         </div>
       </MuiThemeProvider>
     );

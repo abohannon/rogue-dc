@@ -8,6 +8,7 @@ import XPIcon from 'material-ui/svg-icons/social/poll';
 import AttackIcon from 'material-ui/svg-icons/action/gavel';
 // TODO: Clean up these imports
 const feedStyle = {
+  alignItems: 'flex-start',
   marginLeft: 8,
   maxWidth: 200,
 };
