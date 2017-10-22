@@ -11,20 +11,24 @@ import AttackIcon from 'material-ui/svg-icons/action/gavel';
 
 const createStyles = () => ({
   container: {
-    margin: '32px 0 0 -664px',
+    margin: '32px 0 0 250px',
   },
 });
 
 class Stats extends Component {
   static propTypes = {
-    state: PropTypes.object.isRequired,
+    level: PropTypes.number.isRequired,
+    health: PropTypes.number.isRequired,
+    attack: PropTypes.number.isRequired,
+    xp: PropTypes.number.isRequired,
+    nextLevel: PropTypes.number.isRequired,
   }
 
   constructor(props) {
     super(props);
 
     this.state = {
-      mystate: null,
+      mystate: null, // TODO: Remove
     };
   }
 
@@ -34,14 +38,18 @@ class Stats extends Component {
     } = createStyles();
 
     const {
-      state,
+      level,
+      health,
+      attack,
+      xp,
+      nextLevel,
     } = this.props;
 
     return (
       <div style={container}>
         <Badge
           className="level-icon"
-          badgeContent={state.level}
+          badgeContent={level}
           badgeStyle={{ backgroundColor: '#2196F3', color: 'white' }}
         >
           <IconButton tooltip="Level">
@@ -50,7 +58,7 @@ class Stats extends Component {
         </Badge>
         <Badge
           className="health-icon"
-          badgeContent={state.health}
+          badgeContent={health}
           badgeStyle={{ backgroundColor: '#64DD17', color: 'white' }}
 
         >
@@ -60,7 +68,7 @@ class Stats extends Component {
         </Badge>
         <Badge
           className="attack-icon"
-          badgeContent={state.attack}
+          badgeContent={attack}
           badgeStyle={{ backgroundColor: '#FFEA00', color: 'black' }}
 
         >
@@ -70,7 +78,7 @@ class Stats extends Component {
         </Badge>
         <Badge
           className="xp-icon"
-          badgeContent={state.xp}
+          badgeContent={xp}
           badgeStyle={{ backgroundColor: 'black', color: 'white' }}
 
         >
@@ -80,7 +88,7 @@ class Stats extends Component {
         </Badge>
         <Badge
           className="next-level-icon"
-          badgeContent={state.nextLevel}
+          badgeContent={nextLevel}
           badgeStyle={{ backgroundColor: 'black', color: 'white' }}
 
         >

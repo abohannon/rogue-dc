@@ -28,14 +28,14 @@ class App extends Component {
     this.columns = 50;
     this.healthCount = 10;
     this.weaponsCount = 5;
-    this.enemyCount = 12;
+    this.enemyCount = 15;
 
     const boardArray = [];
     for (let i = 0; i < this.rows; i++) {
       boardArray.push([]);
       for (let j = 0; j < this.columns; j++) {
         if (
-          Math.random() > 0.8) {
+          Math.random() > 0.75) {
           boardArray[i].push(0);
         } else {
           boardArray[i].push(1);
@@ -52,6 +52,7 @@ class App extends Component {
       nextLevel: 0,
       row: 0,
       column: 0,
+      enemyHP: 5,
     };
   }
 
@@ -61,11 +62,11 @@ class App extends Component {
     this.createHealth(this.healthCount);
     this.createWeapons(this.weaponsCount);
     this.createEnemies(this.enemyCount);
-    document.addEventListener('keydown', this.handleKeyDown);
+    document.addEventListener('keydown', this.handleMove);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown);
+    document.removeEventListener('keydown', this.handleMove);
   }
 
   createPlayer = () => {
@@ -90,7 +91,6 @@ class App extends Component {
     for (let i = 0; i < amount; i++) {
       const randomRow = Math.floor(Math.random() * this.rows);
       const randomColumn = Math.floor(Math.random() * this.columns);
-      console.log('HEALTH', randomRow, randomColumn);
       newState[randomRow][randomColumn] = 3;
     }
 
@@ -128,15 +128,15 @@ class App extends Component {
   }
 
   // TODO: Rename this function to something more descriptive
-  handleKeyDown = (event) => {
+  handleMove = (event) => {
     const newBoard = [...this.state.board];
     let row = this.state.row;
     let column = this.state.column;
     let newHealth = this.state.health;
-    let newWeapon = this.state.attack;
+    let attack = this.state.attack;
+    let enemyHP = this.state.enemyHP;
     const randomNum = Math.floor(Math.random() * 6) + 5;
 
-    // TODO: prevent player from exiting board/going to a negative row or column
     switch (event.key) {
       case 'ArrowUp':
         if (row > 0) {
@@ -177,7 +177,21 @@ class App extends Component {
         console.log(`You picked up health +${randomNum}`);
         break;
       case 4:
-        newWeapon += 1;
+        attack += 1;
+        break;
+      case 5:
+        console.log('You are fighting an enemy!');
+        if (enemyHP > 0) {
+          row = this.state.row;
+          column = this.state.column;
+          enemyHP -= attack;
+          newHealth -= Math.floor(Math.random() * 5);
+        } else {
+          console.log('You killed an enemy!');
+          enemyHP += 10;
+          // TODO: make enemy progressively stronger by using prevState?
+          // TODO: Need to handle when enemy HP go negative
+        }
         break;
       // no default
     }
@@ -190,7 +204,8 @@ class App extends Component {
       row,
       column,
       health: newHealth,
-      attack: newWeapon,
+      attack,
+      enemyHP,
     });
   }
 
@@ -209,7 +224,7 @@ class App extends Component {
             />
             <Feed />
           </div>
-          <Stats state={this.state} />
+          <Stats {...this.state} />
         </div>
       </MuiThemeProvider>
     );

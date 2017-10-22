@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import Cell from './cell';
 
 const createGridStyles = () => ({
+  boardStyle: {
+    backgroundColor: 'white',
+  },
   rowStyle: {
     display: 'flex',
   },
@@ -29,11 +32,12 @@ class Grid extends Component {
     } = this.props;
 
     const {
+      boardStyle,
       rowStyle,
     } = createGridStyles();
 
     let cellClass = '';
-    const board = boardArray.map(row => (
+    const board = boardArray.map((row, i) => (
       <div className="row" style={rowStyle}>
         {
           row.map((item) => {
@@ -58,7 +62,7 @@ class Grid extends Component {
 
     return (
 
-      <div>{board}</div>
+      <div style={boardStyle}>{board}</div>
 
     );
   }
