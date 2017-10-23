@@ -18,6 +18,7 @@ class Grid extends Component {
     boardArray: PropTypes.array.isRequired,
     playerRow: PropTypes.number.isRequired,
     playerColumn: PropTypes.number.isRequired,
+    fogToggle: PropTypes.bool.isRequired,
   }
 
   constructor(props) {
@@ -33,6 +34,7 @@ class Grid extends Component {
       boardArray,
       playerRow,
       playerColumn,
+      fogToggle,
     } = this.props;
 
     const {
@@ -52,6 +54,7 @@ class Grid extends Component {
                 position={[i, j]}
                 playerRow={playerRow}
                 playerColumn={playerColumn}
+                fogToggle={fogToggle}
               />;
           })
         }

@@ -70,6 +70,12 @@ class App extends Component {
     document.removeEventListener('keydown', this.handleMove);
   }
 
+  toggleFog = () => {
+    this.setState({
+      fog: !this.state.fog,
+    });
+  }
+
   createPlayer = () => {
     const newState = [...this.state.board];
     const randomRow = Math.floor(Math.random() * this.rows);
@@ -228,6 +234,7 @@ class App extends Component {
               boardArray={this.state.board}
               playerRow={this.state.row}
               playerColumn={this.state.column}
+              fogToggle={this.state.fog}
             />
             <Stats {...this.state} toggleFog={this.toggleFog} />
           </div>

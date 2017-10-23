@@ -20,25 +20,28 @@ class Cell extends Component {
     playerColumn: PropTypes.number.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      position: '',
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     position: '',
+  //   };
+  // }
+  //
+  // componentWillReceiveProps() {
+  //   this.setState({
+  //     position: this.props.position,
+  //   });
+  // }
 
-  componentWillReceiveProps() {
-    this.setState({
-      position: this.props.position,
-    });
-  }
-
+  // Generate fog X and Y distance from current player position
   distanceToPlayer = (row, column) => {
-    const { position } = this.props;
-    const distanceRow = position[0] - row;
-    const distanceColumn = position[1] - column;
+    if (this.props.fogToggle) {
+      const { position } = this.props;
+      const distanceRow = position[0] - row;
+      const distanceColumn = position[1] - column;
 
-    return Math.sqrt(Math.pow(distanceRow, 2) + Math.pow(distanceColumn, 2));
+      return Math.sqrt(Math.pow(distanceRow, 2) + Math.pow(distanceColumn, 2));
+    }
   }
 
   render() {
