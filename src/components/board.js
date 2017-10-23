@@ -16,6 +16,8 @@ const createGridStyles = () => ({
 class Grid extends Component {
   static propTypes = {
     boardArray: PropTypes.array.isRequired,
+    playerRow: PropTypes.number.isRequired,
+    playerColumn: PropTypes.number.isRequired,
   }
 
   constructor(props) {
@@ -29,43 +31,34 @@ class Grid extends Component {
   render() {
     const {
       boardArray,
+      playerRow,
+      playerColumn,
     } = this.props;
 
     const {
       boardStyle,
       rowStyle,
-      path,
-      svgContainer,
     } = createGridStyles();
 
-    let cellClass = '';
     const board = boardArray.map((row, i) => (
       <div className="row" style={rowStyle} index={i}>
         {
           row.map((item, j) => {
-            if (item === 0) {
-              cellClass = 'wall cell';
-            } else if (item === 1) {
-              cellClass = 'floor cell';
-            } else if (item === 2) {
-              cellClass = 'player cell';
-            } else if (item === 3) {
-              cellClass = 'health cell';
-            } else if (item === 4) {
-              cellClass = 'weapon cell';
-            } else if (item === 5) {
-              cellClass = 'enemy cell';
-            }
-            return <Cell cellClass={cellClass} position={[i, j]} />;
+            const itemClasses = ['wall', 'floor', 'player', 'health', 'weapon', 'enemy'];
+            const cellClass = itemClasses[item];
+            return 0,
+            <Cell
+                cellClass={cellClass}
+                position={[i, j]}
+                playerRow={playerRow}
+                playerColumn={playerColumn}
+              />;
           })
         }
       </div>
     ));
-
     return (
-
       <div style={boardStyle}>{board}</div>
-
     );
   }
 }

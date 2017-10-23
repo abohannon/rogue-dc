@@ -16,6 +16,8 @@ class Cell extends Component {
   static propTypes = {
     cellClass: PropTypes.string.isRequired,
     position: PropTypes.array.isRequired,
+    playerRow: PropTypes.number.isRequired,
+    playerColumn: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -30,13 +32,30 @@ class Cell extends Component {
       position: this.props.position,
     });
   }
+
+  distanceToPlayer = (row, column) => {
+    const { position } = this.props;
+    const distanceRow = position[0] - row;
+    const distanceColumn = position[1] - column;
+
+    return Math.sqrt(Math.pow(distanceRow, 2) + Math.pow(distanceColumn, 2));
+  }
+
   render() {
+    const {
+      playerRow,
+      playerColumn,
+    } = this.props;
+
+    const distance = this.distanceToPlayer(playerRow, playerColumn);
+    const fog = distance > 5;
+
     const {
       cell,
     } = createCellStyles();
 
     return (
-      <div className={this.props.cellClass} style={cell} />
+      <div className={(fog ? 'fog' : this.props.cellClass)} style={cell} />
     );
   }
 }

@@ -226,6 +226,8 @@ class App extends Component {
           <div style={mainContainer}>
             <Board
               boardArray={this.state.board}
+              playerRow={this.state.row}
+              playerColumn={this.state.column}
             />
             <Stats {...this.state} toggleFog={this.toggleFog} />
           </div>

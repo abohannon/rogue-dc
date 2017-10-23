@@ -6,8 +6,12 @@ body {
   background-color: black;
 }
 
+.fog {
+  background-color: black;
+}
+
 .floor {
-  backround-color: white;
+  background-color: white;
 }
 
 .player {
