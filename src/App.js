@@ -53,6 +53,7 @@ class App extends Component {
       row: 0,
       column: 0,
       enemyHP: 5,
+      fog: false,
     };
   }
 
@@ -129,10 +130,10 @@ class App extends Component {
 
   // TODO: Rename this function to something more descriptive
   handleMove = (event) => {
-    const newBoard = [...this.state.board];
+    const board = [...this.state.board];
     let row = this.state.row;
     let column = this.state.column;
-    let newHealth = this.state.health;
+    let health = this.state.health;
     let attack = this.state.attack;
     let enemyHP = this.state.enemyHP;
     let xp = this.state.xp;
@@ -173,7 +174,7 @@ class App extends Component {
         column = this.state.column;
         break;
       case 3: // picked up health
-        newHealth += Math.floor(Math.random() * 6) + 5;
+        health += Math.floor(Math.random() * 6) + 5;
         break;
       case 4: // picked up a weapon
         attack += 1;
@@ -185,7 +186,7 @@ class App extends Component {
           column = this.state.column;
           enemyHP -= Math.floor(Math.random() * (5 - attack)) + attack;
           console.log('attack!', Math.floor(Math.random() * (5 - attack)) + attack);
-          newHealth -= Math.floor(Math.random() * 5) + 2;
+          health -= Math.floor(Math.random() * 5) + 2;
         } else {
           console.log('You killed an enemy!');
           enemyHP = enemyHP + Math.abs(enemyHP) + Math.floor(Math.random() * 10) + 5;
@@ -199,14 +200,14 @@ class App extends Component {
 
     /* update copy of board array with new player position and change
     previous player position to a floor class (to avoid snake effect) */
-    newBoard[this.state.row][this.state.column] = 1;
-    newBoard[row][column] = 2;
+    board[this.state.row][this.state.column] = 1;
+    board[row][column] = 2;
 
     this.setState({
-      board: newBoard,
+      board,
       row,
       column,
-      health: newHealth,
+      health,
       attack,
       enemyHP,
       xp,
@@ -226,7 +227,7 @@ class App extends Component {
             <Board
               boardArray={this.state.board}
             />
-            <Stats {...this.state} />
+            <Stats {...this.state} toggleFog={this.toggleFog} />
           </div>
           <Feed />
         </div>

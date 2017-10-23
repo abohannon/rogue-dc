@@ -28,6 +28,7 @@ class Stats extends Component {
     attack: PropTypes.number.isRequired,
     xp: PropTypes.number.isRequired,
     nextLevel: PropTypes.number.isRequired,
+    toggleFog: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -49,6 +50,7 @@ class Stats extends Component {
       attack,
       xp,
       nextLevel,
+      toggleFog,
     } = this.props;
 
     return (
@@ -105,7 +107,7 @@ class Stats extends Component {
           </Badge>
         </div>
         <div>
-          <Toggle label="Fog" />
+          <Toggle label="Fog" onToggle={toggleFog} />
         </div>
         <div>
           <RaisedButton label="Reset" />

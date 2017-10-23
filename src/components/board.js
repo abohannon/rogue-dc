@@ -34,13 +34,15 @@ class Grid extends Component {
     const {
       boardStyle,
       rowStyle,
+      path,
+      svgContainer,
     } = createGridStyles();
 
     let cellClass = '';
     const board = boardArray.map((row, i) => (
-      <div className="row" style={rowStyle}>
+      <div className="row" style={rowStyle} index={i}>
         {
-          row.map((item) => {
+          row.map((item, j) => {
             if (item === 0) {
               cellClass = 'wall cell';
             } else if (item === 1) {
@@ -54,7 +56,7 @@ class Grid extends Component {
             } else if (item === 5) {
               cellClass = 'enemy cell';
             }
-            return <Cell cellClass={cellClass} />;
+            return <Cell cellClass={cellClass} position={[i, j]} />;
           })
         }
       </div>

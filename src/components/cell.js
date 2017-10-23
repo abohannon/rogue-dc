@@ -15,7 +15,21 @@ const createCellStyles = () => ({
 class Cell extends Component {
   static propTypes = {
     cellClass: PropTypes.string.isRequired,
+    position: PropTypes.array.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      position: '',
+    };
+  }
+
+  componentWillReceiveProps() {
+    this.setState({
+      position: this.props.position,
+    });
+  }
   render() {
     const {
       cell,
