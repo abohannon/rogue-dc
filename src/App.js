@@ -30,21 +30,24 @@ class App extends Component {
     this.weaponsCount = 5;
     this.enemyCount = 15;
 
-    const boardArray = [];
-    for (let i = 0; i < this.rows; i++) {
-      boardArray.push([]);
-      for (let j = 0; j < this.columns; j++) {
-        if (
-          Math.random() > 0.75) {
-          boardArray[i].push(0);
-        } else {
-          boardArray[i].push(1);
+    this.createBoard = () => {
+      const boardArray = [];
+      for (let i = 0; i < this.rows; i++) {
+        boardArray.push([]);
+        for (let j = 0; j < this.columns; j++) {
+          if (
+            Math.random() > 0.75) {
+            boardArray[i].push(0);
+          } else {
+            boardArray[i].push(1);
+          }
         }
       }
-    }
+      return boardArray;
+    };
 
     this.state = {
-      board: boardArray,
+      board: this.createBoard(),
       level: 1,
       xp: 0,
       health: 100,
@@ -53,16 +56,13 @@ class App extends Component {
       row: 0,
       column: 0,
       enemyHP: 5,
-      fog: false,
+      fog: true,
     };
   }
 
   componentDidMount() {
     console.log('App mounting...');
-    this.createPlayer();
-    this.createHealth(this.healthCount);
-    this.createWeapons(this.weaponsCount);
-    this.createEnemies(this.enemyCount);
+    this.createElements();
     document.addEventListener('keydown', this.handleMove);
   }
 
@@ -74,6 +74,22 @@ class App extends Component {
     this.setState({
       fog: !this.state.fog,
     });
+  }
+
+  resetBoard = () => {
+    const newBoard = this.createBoard();
+    this.setState({
+      board: newBoard,
+      level: 1,
+      xp: 0,
+      health: 100,
+      attack: 1,
+      nextLevel: 20,
+      row: 0,
+      column: 0,
+      enemyHP: 5,
+      fog: true,
+    }, this.createElements);
   }
 
   createPlayer = () => {
@@ -132,6 +148,13 @@ class App extends Component {
     this.setState({
       board: newState,
     });
+  }
+
+  createElements = () => {
+    this.createPlayer();
+    this.createHealth(this.healthCount);
+    this.createWeapons(this.weaponsCount);
+    this.createEnemies(this.enemyCount);
   }
 
   // TODO: Rename this function to something more descriptive
@@ -236,7 +259,7 @@ class App extends Component {
               playerColumn={this.state.column}
               fogToggle={this.state.fog}
             />
-            <Stats {...this.state} toggleFog={this.toggleFog} />
+            <Stats {...this.state} toggleFog={this.toggleFog} reset={this.resetBoard} />
           </div>
           <Feed />
         </div>

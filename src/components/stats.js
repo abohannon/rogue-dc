@@ -33,6 +33,7 @@ class Stats extends Component {
     xp: PropTypes.number.isRequired,
     nextLevel: PropTypes.number.isRequired,
     toggleFog: PropTypes.func.isRequired,
+    reset: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -44,17 +45,17 @@ class Stats extends Component {
   }
   // TODO: Doesn't quite work
   healthStatus = (number) => {
-    let result = '';
-    if (number < 76) {
-      result = '#FFC107';
-    } else if (number < 51) {
-      result = '#FF9800';
-    } else if (number < 26) {
-      result = '#FF5722';
-    } else if (number < 11) {
-      result = '#DD2C00';
-    } else {
+    let result;
+    if (number > 76) {
       result = '#64DD17';
+    } else if (number < 76 && number > 51) {
+      result = '#FFC107';
+    } else if (number < 51 && number > 26) {
+      result = '#FF9800';
+    } else if (number < 26 && number > 11) {
+      result = '#FF5722';
+    } else {
+      result = '#DD2C00';
     }
     return result;
   }
@@ -67,6 +68,8 @@ class Stats extends Component {
       xp,
       nextLevel,
       toggleFog,
+      reset,
+      fog,
     } = this.props;
 
     const healthFunc = this.healthStatus(health);
@@ -130,10 +133,10 @@ class Stats extends Component {
           </Badge>
         </div>
         <div>
-          <Toggle label="Fog" onToggle={toggleFog} />
+          <Toggle label="Fog" onToggle={toggleFog} toggled={!!fog} />
         </div>
         <div>
-          <RaisedButton label="Reset" />
+          <RaisedButton label="Reset" onClick={reset} />
         </div>
       </div>
 
