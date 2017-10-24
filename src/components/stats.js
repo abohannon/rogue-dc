@@ -11,13 +11,17 @@ import NextLevelIcon from 'material-ui/svg-icons/action/trending-up';
 import XPIcon from 'material-ui/svg-icons/social/poll';
 import AttackIcon from 'material-ui/svg-icons/action/gavel';
 
-const createStyles = () => ({
+const createStyles = props => ({
   container: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     margin: '32px 0 0 0',
+  },
+  healthStyle: {
+    backgroundColor: props,
+    color: 'white',
   },
 });
 
@@ -38,12 +42,24 @@ class Stats extends Component {
       mystate: null, // TODO: Remove
     };
   }
+  // TODO: Doesn't quite work
+  healthStatus = (number) => {
+    let result = '';
+    if (number < 76) {
+      result = '#FFC107';
+    } else if (number < 51) {
+      result = '#FF9800';
+    } else if (number < 26) {
+      result = '#FF5722';
+    } else if (number < 11) {
+      result = '#DD2C00';
+    } else {
+      result = '#64DD17';
+    }
+    return result;
+  }
 
   render() {
-    const {
-      container,
-    } = createStyles();
-
     const {
       level,
       health,
@@ -52,6 +68,13 @@ class Stats extends Component {
       nextLevel,
       toggleFog,
     } = this.props;
+
+    const healthFunc = this.healthStatus(health);
+
+    const {
+      container,
+      healthStyle,
+    } = createStyles(healthFunc);
 
     return (
       <div style={container}>
@@ -68,7 +91,7 @@ class Stats extends Component {
           <Badge
             className="health-icon"
             badgeContent={health}
-            badgeStyle={{ backgroundColor: '#64DD17', color: 'white' }}
+            badgeStyle={healthStyle}
 
           >
             <IconButton tooltip="Health">
