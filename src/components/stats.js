@@ -7,7 +7,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import LevelIcon from 'material-ui/svg-icons/action/perm-identity';
 import HealthIcon from 'material-ui/svg-icons/action/favorite';
-import NextLevelIcon from 'material-ui/svg-icons/action/trending-up';
 import XPIcon from 'material-ui/svg-icons/social/poll';
 import AttackIcon from 'material-ui/svg-icons/action/gavel';
 

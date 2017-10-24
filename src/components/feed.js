@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Radium from 'radium';
 import { List, ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
@@ -13,21 +13,29 @@ const feedStyle = {
   maxWidth: 200,
 };
 
-const feedItems = [
-  <ListItem primaryText="Great work! You've leveled up!" leftIcon={<NextLevelIcon />} />,
-  <ListItem primaryText="You picked up health!" leftIcon={<HealthIcon />} />,
-  <ListItem primaryText="You picked up a weapon!" leftIcon={<AttackIcon />} />,
-  <ListItem primaryText="Nice fight! You gained 10 XP." leftIcon={<XPIcon />} />,
-  <ListItem primaryText="Great work! You've leveled up!" leftIcon={<NextLevelIcon />} />,
-];
+class Feed extends Component {
+  render() {
+    const feed = [];
+    const feedItems = {
+      health: <ListItem primaryText="You picked up health!" leftIcon={<HealthIcon />} />,
+      weapon: <ListItem primaryText="You picked up a weapon!" leftIcon={<AttackIcon />} />,
+      xp: <ListItem primaryText="Nice fight! You gained XP." leftIcon={<XPIcon />} />,
+      levelUp: <ListItem primaryText="Great work! You've leveled up!" leftIcon={<NextLevelIcon />} />,
+    };
+    // if (nextProps.health < this.props.health) {
+    //   console.log('Health!');
+    // }
+    // feed.push(feedItems.health);
 
-const Feed = () => (
-  <div style={feedStyle}>
-    <List>
-      {feedItems}
-    </List>
-    <Divider />
-  </div>
-);
+    return 0,
+      <div style={feedStyle}>
+      <List>
+          {feed}
+        </List>
+      <Divider />
+    </div>;
+  }
+}
+
 
 export default Radium(Feed);

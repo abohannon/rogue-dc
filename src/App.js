@@ -48,7 +48,6 @@ class App extends Component {
 
     this.state = {
       board: this.createBoard(),
-      gameOn: true,
       level: 1,
       xp: 0,
       health: 100,
@@ -61,7 +60,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('App mounting...');
     this.createElements();
     document.addEventListener('keydown', this.handleMove);
   }
@@ -80,7 +78,6 @@ class App extends Component {
     const newBoard = this.createBoard();
     this.setState({
       board: newBoard,
-      gameOn: true,
       level: 1,
       xp: 0,
       health: 100,
@@ -95,60 +92,59 @@ class App extends Component {
   }
 
   createPlayer = () => {
-    const newState = [...this.state.board];
+    const boardCopy = [...this.state.board];
     const randomRow = Math.floor(Math.random() * this.rows);
     const randomColumn = Math.floor(Math.random() * this.columns);
     console.log(randomRow, randomColumn);
 
-    newState[randomRow][randomColumn] = 2;
+    boardCopy[randomRow][randomColumn] = 2;
 
     this.setState({
-      board: newState,
+      board: boardCopy,
       row: randomRow,
       column: randomColumn,
     });
   };
 
-  // TODO: Combine element creation into one function?
   createHealth = (amount) => {
-    const newState = [...this.state.board];
+    const boardCopy = [...this.state.board];
 
     for (let i = 0; i < amount; i++) {
       const randomRow = Math.floor(Math.random() * this.rows);
       const randomColumn = Math.floor(Math.random() * this.columns);
-      newState[randomRow][randomColumn] = 3;
+      boardCopy[randomRow][randomColumn] = 3;
     }
 
     this.setState({
-      board: newState,
+      board: boardCopy,
     });
   }
 
   createWeapons = (amount) => {
-    const newState = [...this.state.board];
+    const boardCopy = [...this.state.board];
 
     for (let i = 0; i < amount; i++) {
       const randomRow = Math.floor(Math.random() * this.rows);
       const randomColumn = Math.floor(Math.random() * this.columns);
-      newState[randomRow][randomColumn] = 4;
+      boardCopy[randomRow][randomColumn] = 4;
     }
 
     this.setState({
-      board: newState,
+      board: boardCopy,
     });
   }
 
   createEnemies = (amount) => {
-    const newState = [...this.state.board];
+    const boardCopy = [...this.state.board];
 
     for (let i = 0; i < amount; i++) {
       const randomRow = Math.floor(Math.random() * this.rows);
       const randomColumn = Math.floor(Math.random() * this.columns);
-      newState[randomRow][randomColumn] = 5;
+      boardCopy[randomRow][randomColumn] = 5;
     }
 
     this.setState({
-      board: newState,
+      board: boardCopy,
     });
   }
 
@@ -205,7 +201,6 @@ class App extends Component {
 
     switch (this.state.board[row][column]) {
       case 0: // wall
-        console.log('You just hit a wall!');
         row = this.state.row;
         column = this.state.column;
         break;
@@ -251,6 +246,7 @@ class App extends Component {
       });
     }
 
+    // game over
     if (health <= 0) {
       this.gameOver();
     }
@@ -285,7 +281,7 @@ class App extends Component {
             />
             <Stats {...this.state} toggleFog={this.toggleFog} reset={this.resetBoard} />
           </div>
-          <Feed />
+          <Feed {...this.state} />
         </div>
       </MuiThemeProvider>
     );
