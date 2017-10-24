@@ -36,7 +36,7 @@ class App extends Component {
         boardArray.push([]);
         for (let j = 0; j < this.columns; j++) {
           if (
-            Math.random() > 0.83) {
+            Math.random() > 0.82) {
             boardArray[i].push(0);
           } else {
             boardArray[i].push(1);
@@ -160,7 +160,6 @@ class App extends Component {
     return true;
   }
 
-  // TODO: Rename this function to something more descriptive
   handleMove = (event) => {
     const board = [...this.state.board];
     let row = this.state.row;
@@ -169,6 +168,7 @@ class App extends Component {
     let attack = this.state.attack;
     let enemyHP = this.state.enemyHP;
     let xp = this.state.xp;
+
     // setup basic keyboard movement
     switch (event.key) {
       case 'ArrowUp':
