@@ -4,12 +4,25 @@ import PropTypes from 'prop-types';
 
 import Cell from './cell';
 
-const createGridStyles = () => ({
+const createGridStyles = props => ({
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   boardStyle: {
     backgroundColor: 'white',
   },
   rowStyle: {
     display: 'flex',
+  },
+  gameOver: {
+    fontSize: 90,
+    fontWeight: 900,
+    color: 'red',
+    position: 'absolute',
+    textShadow: '2px 2px rgba(0, 0, 0, 0.8)',
+    display: props.playerHealth <= 0 ? '' : 'none',
   },
 });
 
@@ -19,14 +32,6 @@ class Grid extends Component {
     playerRow: PropTypes.number.isRequired,
     playerColumn: PropTypes.number.isRequired,
     fogToggle: PropTypes.bool.isRequired,
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      myState: null,
-    };
   }
 
   render() {
@@ -40,7 +45,9 @@ class Grid extends Component {
     const {
       boardStyle,
       rowStyle,
-    } = createGridStyles();
+      container,
+      gameOver,
+    } = createGridStyles(this.props);
 
     const board = boardArray.map((row, i) => (
       <div className="row" style={rowStyle} index={i}>
@@ -61,7 +68,11 @@ class Grid extends Component {
       </div>
     ));
     return (
-      <div style={boardStyle}>{board}</div>
+      <div style={container}>
+        <div style={gameOver}>GAME OVER</div>
+        <div style={boardStyle}>{board}</div>
+      </div>
+
     );
   }
 }

@@ -31,7 +31,6 @@ class Stats extends Component {
     health: PropTypes.number.isRequired,
     attack: PropTypes.number.isRequired,
     xp: PropTypes.number.isRequired,
-    nextLevel: PropTypes.number.isRequired,
     toggleFog: PropTypes.func.isRequired,
     reset: PropTypes.func.isRequired,
   }
@@ -66,7 +65,6 @@ class Stats extends Component {
       health,
       attack,
       xp,
-      nextLevel,
       toggleFog,
       reset,
       fog,
@@ -119,16 +117,6 @@ class Stats extends Component {
           >
             <IconButton tooltip="XP">
               <XPIcon />
-            </IconButton>
-          </Badge>
-          <Badge
-            className="next-level-icon"
-            badgeContent={nextLevel}
-            badgeStyle={{ backgroundColor: 'black', color: 'white' }}
-
-          >
-            <IconButton tooltip="Next Level">
-              <NextLevelIcon />
             </IconButton>
           </Badge>
         </div>

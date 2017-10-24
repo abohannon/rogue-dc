@@ -36,7 +36,7 @@ class App extends Component {
         boardArray.push([]);
         for (let j = 0; j < this.columns; j++) {
           if (
-            Math.random() > 0.75) {
+            Math.random() > 0.83) {
             boardArray[i].push(0);
           } else {
             boardArray[i].push(1);
@@ -48,11 +48,11 @@ class App extends Component {
 
     this.state = {
       board: this.createBoard(),
+      gameOn: true,
       level: 1,
       xp: 0,
       health: 100,
       attack: 1,
-      nextLevel: 20,
       row: 0,
       column: 0,
       enemyHP: 5,
@@ -80,6 +80,7 @@ class App extends Component {
     const newBoard = this.createBoard();
     this.setState({
       board: newBoard,
+      gameOn: true,
       level: 1,
       xp: 0,
       health: 100,
@@ -90,6 +91,7 @@ class App extends Component {
       enemyHP: 5,
       fog: true,
     }, this.createElements);
+    document.addEventListener('keydown', this.handleMove);
   }
 
   createPlayer = () => {
@@ -157,6 +159,11 @@ class App extends Component {
     this.createEnemies(this.enemyCount);
   }
 
+  gameOver = () => {
+    document.removeEventListener('keydown', this.handleMove);
+    return true;
+  }
+
   // TODO: Rename this function to something more descriptive
   handleMove = (event) => {
     const board = [...this.state.board];
@@ -221,7 +228,7 @@ class App extends Component {
           enemyHP = enemyHP + Math.abs(enemyHP) + Math.floor(Math.random() * 10) + 5;
           /* if enemyHP is negative, bring it back to zero then
           add random number between 5-15 */
-          xp += Math.floor(Math.random() * (10 - 3)) + 3;
+          xp += Math.floor(Math.random() * (35 - 10)) + 10;
         }
         break;
       // no default
@@ -232,6 +239,22 @@ class App extends Component {
     board[this.state.row][this.state.column] = 1;
     board[row][column] = 2;
 
+    // level up
+    if (xp >= 100) {
+      this.setState({
+        level: this.state.level + 1,
+        xp: 0,
+      });
+    } else {
+      this.setState({
+        xp,
+      });
+    }
+
+    if (health <= 0) {
+      this.gameOver();
+    }
+
     this.setState({
       board,
       row,
@@ -239,7 +262,6 @@ class App extends Component {
       health,
       attack,
       enemyHP,
-      xp,
     });
   }
 
@@ -258,6 +280,8 @@ class App extends Component {
               playerRow={this.state.row}
               playerColumn={this.state.column}
               fogToggle={this.state.fog}
+              gameOver={this.gameOver}
+              playerHealth={this.state.health}
             />
             <Stats {...this.state} toggleFog={this.toggleFog} reset={this.resetBoard} />
           </div>
