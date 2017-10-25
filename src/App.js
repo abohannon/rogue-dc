@@ -36,7 +36,7 @@ class App extends Component {
         boardArray.push([]);
         for (let j = 0; j < this.columns; j++) {
           if (
-            Math.random() > 0.82) {
+            Math.random() > 0.78) {
             boardArray[i].push(0);
           } else {
             boardArray[i].push(1);
@@ -56,6 +56,7 @@ class App extends Component {
       column: 0,
       enemyHP: 5,
       fog: true,
+      feed: [],
     };
   }
 
@@ -74,6 +75,12 @@ class App extends Component {
     });
   }
 
+  updateFeed = (updatedFeed) => {
+    this.setState({
+      feed: updatedFeed,
+    });
+  }
+
   resetBoard = () => {
     const newBoard = this.createBoard();
     this.setState({
@@ -87,6 +94,7 @@ class App extends Component {
       column: 0,
       enemyHP: 5,
       fog: true,
+      feed: [],
     }, this.createElements);
     document.addEventListener('keydown', this.handleMove);
   }
@@ -95,7 +103,6 @@ class App extends Component {
     const boardCopy = [...this.state.board];
     const randomRow = Math.floor(Math.random() * this.rows);
     const randomColumn = Math.floor(Math.random() * this.columns);
-    console.log(randomRow, randomColumn);
 
     boardCopy[randomRow][randomColumn] = 2;
 
@@ -211,15 +218,12 @@ class App extends Component {
         attack += 1;
         break;
       case 5: // encountered an enemy
-        console.log('You are fighting an enemy!');
         if (enemyHP > 0) {
           row = this.state.row;
           column = this.state.column;
           enemyHP -= Math.floor(Math.random() * (5 - attack)) + attack;
-          console.log('attack!', Math.floor(Math.random() * (5 - attack)) + attack);
           health -= Math.floor(Math.random() * 5) + 2;
         } else {
-          console.log('You killed an enemy!');
           enemyHP = enemyHP + Math.abs(enemyHP) + Math.floor(Math.random() * 10) + 5;
           /* if enemyHP is negative, bring it back to zero then
           add random number between 5-15 */
@@ -281,7 +285,7 @@ class App extends Component {
             />
             <Stats {...this.state} toggleFog={this.toggleFog} reset={this.resetBoard} />
           </div>
-          <Feed {...this.state} />
+          <Feed {...this.state} updateFeed={this.updateFeed} />
         </div>
       </MuiThemeProvider>
     );
